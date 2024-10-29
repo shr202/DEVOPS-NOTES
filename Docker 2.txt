@@ -1,0 +1,485 @@
+MONOLYTHIC PROJECT:
+========================
+INTRO
+SOFTWARE ARCHITECTURE
+EC2
+LINUX
+GIT(GLOBAL INFORMATION TRACKER){WORKD LOALLY)
+GITHUB(WORKS CENTRALLY)
+MAVEN
+JENKINS
+ANSIBLE
+TERRAFORM
+
+MICEOSERVICES
+==============
+DOCKER AND K8S
+=>pod is a collection of containers.
+
+MONOLYTHIC EG:: PAYTM
+
+some menaings::
+==================
+container:it's like a v.m. and it does not have any o.s.
+virtualization:: process that allows for more efficient utilization of physical computer h/w and the foundation of cloud computing.
+hypervisor: helps to make virtualization and to create VM
+containerizarion:: process of packing application along with its dependencies
+docker:: it is a tool that create conatiner.it is morew advanced than virtualization.
+
+DOCKER::
+==========
+=>it is an open-source centralized platform designed to create,deploy and run applications.
+=>docker written on go language
+=>docker uses conatiners on host O.S. to run applications.it allows applications to use the same linux kernal as a system on the host computer,
+rather than creating a whole virtual o.s.
+=>we can install docker on any o.s. but docker engine runs natively on linux distribution
+=>docker performs o.s. level virtualization also kown as containerization
+=><before docker many users face problems that particular code is running in the developers system but not in the user system.
+=>it was intially released in march 2013,and developed by solomon hykes and sebastian pahl.
+
+what is the diff b/n docker and VM ware?
+
+=>docker is a set of platform-as -a-service that use o.s. level virtualization,where as VM ware uses h/w level Virtualization.
+=>conatiner have o.s. files but its negligible in size compared to original files of that o.s
+
+ARCHITETURE::
+===============
+to pull image first req will go to client there not found go to docker daemon ther not found go to registory and (registory conatains all images)
+
+dokcer client:it is the primary way that many docker users interact with docker.when you use commands such as docker run,the client sends these commands
+to docker daemon,which carries them out.the docker command uses the docker api
+
+docker host::docker host is the machine where you install the docker image.
+docker daemon::docker daemon runs on the host o.s. it is responsible for running conatiners to manage docker services.docker daemon 
+communicates with other daemons.it offers various docker objects such as image,con,n/w ing and storage.
+
+docker registry :: it is also called docker hub a docker registry is a scalable open-source storage and distribution system for docker image.
+
+==> diff b/n git and docker:: in git you have source code in docker you have source code present in the image.
+points to be followed::
+=====================
+image ------->conatiner
+      <-------
+==>you cant  use docker directly you need to start/restart first(observe the docker version before and after restart)
+==>you need a base image for creating a conatiner
+==>you cant enter directly  to conatiner,you need to start first.
+==>if you run an image,by default one conatiner will be created.
+
+docker engine is docker daemon
+
+==>what is the diff b/n run and pull: pull is to create an image and run command is to create conatiner.
+
+history:
+===========
+yum update -y
+    2  yum upgrade -y
+    3  yum install docker -y
+    4  docker --version
+    5  docker version [here you got client information]
+    6  systemctl start docker or service docker start
+    7  systemctl status docker or service docker status
+    8  docker version [here you got both client and engine (docker daemon) information will get] 
+    9  clear
+   10  docker images [to see the avaliable images]
+   11  docker ps -a [to see the conatiners]
+   12  docker pull ubuntu [to create image]
+   13  docker ps -a [no conatiners are avaliable]
+   14  docker images [image name only got with uniqueid]
+   15  docker run ubuntu [to create conatiner]
+   16  docker ps -a
+   17 docker run --name cont1  ubuntu [to give name of the container] (or) 
+   18 docker ps -a
+	   CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
+	   e0f98edaca23   ubuntu    "/bin/bash"   5 seconds ago   Exited (0) 4 seconds ago             cont1
+	   6977567c1195   ubuntu    "/bin/bash"   8 minutes ago   Exited (0) 8 minutes ago             elastic_wing
+   19 docker run -it  --name cont2 ubuntu(-it will create cont2 and it will go inside cont2 if we dont use -it terminal then it wont go to the inside the container)then inside type cat /etc/os-release)
+   qn:: you have linux o.s. which flavor of your conatiner is running(cat /etc/os-release)
+   19 exit (exit or ctrl+d from the container)
+   20 docker ps -a
+   21 docker start cont2(it will start the conatiner)
+   22 docker ps -a (to saw the conatainers)
+	CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES
+	f72669ca9000   ubuntu    "/bin/bash"   13 minutes ago   Up 5 seconds                          cont2
+	e0f98edaca23   ubuntu    "/bin/bash"   17 minutes ago   Exited (0) 17 minutes ago             cont1
+	6977567c1195   ubuntu    "/bin/bash"   25 minutes ago   Exited (0) 14 minutes ago             elastic_wing
+   23 docker stop cont2
+    CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                        PORTS     NAMES
+	f72669ca9000   ubuntu    "/bin/bash"   14 minutes ago   Exited (137) 10 seconds ago             cont2
+	e0f98edaca23   ubuntu    "/bin/bash"   19 minutes ago   Exited (0) 19 minutes ago               cont1
+	6977567c1195   ubuntu    "/bin/bash"   27 minutes ago   Exited (0) 15 minutes ago               elastic_wing
+   24 docker ps -a
+   25 docker attach cont2(before you start and enter any conatiner it need to be start)
+   26 docker start cont2
+   27 docker ps -a   
+   28 docker attach cont2(then it enter into the conatiner)
+   29 exit(exit from the conatiner)
+   30 docker ps -a
+   31 docker start cont2
+   32 docker ps -a(it shows all conatiners)
+   33 docker pause cont2(it will stop the conatiner for few minutes)
+   34 docker ps -a(it shows all the conatainerS)
+   35 docker unpause cont2(again it start the cont2)
+   36 docker ps -a
+==.before you delete any container we need to stop the container and then we delete.
+   37 docker stop cont2
+      cont2
+   38 docker ps -a
+		CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                       PORTS     NAMES
+		f72669ca9000   ubuntu    "/bin/bash"   45 minutes ago   Exited (137) 4 seconds ago             cont2
+		e0f98edaca23   ubuntu    "/bin/bash"   49 minutes ago   Exited (0) 15 minutes ago              cont1
+		6977567c1195   ubuntu    "/bin/bash"   57 minutes ago   Exited (0) 45 minutes ago              elastic_wing
+   39 docker rm cont2 [based on container id and conatiner name it will be deleted]
+   40 docker ps -a
+	CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES
+	e0f98edaca23   ubuntu    "/bin/bash"   49 minutes ago   Exited (0) 15 minutes ago             cont1
+	6977567c1195   ubuntu    "/bin/bash"   57 minutes ago   Exited (0) 46 minutes ago             elastic_wing
+
+2nd video:: 27
+=============
+what is the purpose of docker?? is to create conatiner
+
+what is an image?? it conatins of everything you require to create conatainer.
+install ubuntu in image conatins ubuntu o.s.
+eg::
+======
+==>if we use install jenkins we need to setup that is taking time.but if we use jenkins image that setup alredy 
+there we just need to use them.
+==>monolythic:: single server(conatainer) single database single application
+==>microservice:: multiple servers(conatainers) multiple databases mutiple services 
+diff b/n ::
+==>more conatiners in micro for cost effective microservices.
+alternative for yum::rpm package
+alternative for apt:: debianpackage
+
+==>in conatainers we cant do copy comand(creating container inside another container)
+ubuntu --->cont1 -->image --> conatainer
+in ubuntu we use two ways(apt and apt-get)
+in general:: apt install apache2 -y (will get progress bar in green colour)
+==>apt-get install maven -y(we wont get any progress bar)
+==>apt update -y(will get list of update package)
+==>apt upgrade -y(it will update)
+
+commands::
+===================
+yum install docker -y
+docker --version
+docker pull ubuntu
+systemctl start docker
+sytemctl status docker
+docker run -it --name cont1 ubuntu[go inside cont1] (or) we can give like tz also[docker run -ti --name cont1 ubuntu]
+	1 apt update -y
+	2 apt upgrade -y
+	3 apt install tree -y
+	4 tree --version
+	5 apt install maven -y
+	6 mvn --version
+	7 touch file{1..5}
+	8 exit
+docker ps -a or docker container ls -a
+docker container ls[it sjhows all starting containers]
+now creating raham image and copying the all content from cont1 to raham1
+=============================
+docker commit cont1 raham1
+docker run -it --name cont2 raham1
+	1 apache2 --verison
+	2 mvn --verison
+	3 tree --version
+	4 ls 
+	5 exit
+	here all content will be copied from cont1 to raham1 to cont2 [upto here we wont use in real time]
+	
+2ndprocess::we can container inside container we use dockerfile concept.[automationway]
+==================
+Docker FIle::
+================
+==>it is basically atext file which conatains some set of instructions
+==>automation of docker image creation
+==>always D is capital letter on Docker file
+==>and start componets also be capital letter
+how it works:;
+=========
+==>fisrt you need create a docker file
+==>build it
+==>create container using the image
+Docker file components:
+=====================
+==>diff b/n run,cmd,entrypoint
+==>diff b/n cpoy and add
+vi Dockerfile
+DockerFile:: we can reuse the file as many as times
+=======================
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install tree -y
+RUN touch file{1..5}
+==>docker build -t devops .(-t means tag . means current directory)
+we got o/p::
+Successfully built 1edf3fc318bb
+Successfully tagged devops:latest
+==>docker images
+	REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+	devops       latest    1edf3fc318bb   3 minutes ago    236MB
+	raham1       latest    07027be7a099   35 minutes ago   459MB
+	ubuntu       latest    ca2b0f26964c   2 weeks ago      77.9MB
+==>docker run -it --name cont3 devops
+	1 apache2 --verison
+	2 tree --verison
+	3 file{1..5} [file will create like tz]
+	4 we create files manulaly file{1..5}
+	5 ls
+	6 exit
+==>cat>raham
+	hello
+==>vim Dockerfile
+    FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+==>docker build -t devops . (we can build the file with same name we can update file with same name or different name)
+==>docker build -t devops1 .
+==>docker images
+	REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+	devops       latest    8e1e3bce545a   29 seconds ago   236MB
+	devops1      latest    8e1e3bce545a   29 seconds ago   236MB
+	raham1       latest    07027be7a099   52 minutes ago   459MB
+	ubuntu       latest    ca2b0f26964c   2 weeks ago      77.9MB
+==>docker run -it --name cont4 devops
+==>touch abc{1..5}
+==>vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp
+==>docker build -t devops1 .
+  error: When using COPY with more than one source file, the destination must be a directory and end with a /
+==> vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/ [if we work with multiple files then we need to give the /tmp/][single file we can copy]
+==>docker build -t devops1 .
+	Successfully built 03887609fb9d
+	Successfully tagged devops1:latest
+==>docker images
+	REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+	devops1      latest    03887609fb9d   21 minutes ago   236MB
+	test         latest    03887609fb9d   21 minutes ago   236MB
+	devops       latest    8e1e3bce545a   50 minutes ago   236MB
+	raham1       latest    07027be7a099   2 hours ago      459MB
+	ubuntu       latest    ca2b0f26964c   2 weeks ago      77.9MB
+==>docker ps -a
+	CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                           PORTS     NAMES
+	c722dc5723e7   devops         "/bin/bash"              34 minutes ago      Exited (0) 32 minutes ago                  cont4
+	064c46a19e8b   1edf3fc318bb   "/bin/bash"              About an hour ago   Exited (0) 59 minutes ago                  cont3
+	32ea05748cdc   5cfc304e84be   "/bin/sh -c 'aptinst…"   About an hour ago   Exited (127) About an hour ago             wizardly_feistel
+	0146b44c3206   9a4713492d9f   "/bin/sh -c 'apt upg…"   About an hour ago   Exited (100) About an hour ago             great_blackwell
+	ffd290fe8124   ca2b0f26964c   "/bin/sh -c 'apt ins…"   About an hour ago   Exited (100) About an hour ago             frosty_black
+	f5303a8293d9   raham1         "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                     cont2
+	a535499dce53   ubuntu         "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                     cont1
+==>we build devops1 now run conatiner for devops1 image::
+==>docker build -it --name cont5 devops1 [enter into cont5]
+ ==>ll
+	==>	drwxrwxrwt 1 root root 66 Mar 14 10:58 ./
+		drwxr-xr-x 1 root root  6 Mar 14 11:21 ../
+		-rw-r--r-- 1 root root  0 Mar 14 10:47 abc1
+		-rw-r--r-- 1 root root  0 Mar 14 10:47 abc2
+		-rw-r--r-- 1 root root  0 Mar 14 10:47 abc3
+		-rw-r--r-- 1 root root  0 Mar 14 10:47 abc4
+		-rw-r--r-- 1 root root  0 Mar 14 10:47 abc5
+		-rw-r--r-- 1 root root  6 Mar 14 10:20 raham
+  ==>exit
+==>cat Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/
+	
+==>now we place our internet file in dockerfile
+==>vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/
+	ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+==>docker build -t devops1 .
+==>docker run -it --name cont6 devops1
+  ==>ll
+  ==>total 8108
+	drwxrwxrwt 1 root root      43 Mar 14 11:39 ./
+	drwxr-xr-x 1 root root       6 Mar 14 11:40 ../
+	-rw-r--r-- 1 root root       0 Mar 14 10:47 abc1
+	-rw-r--r-- 1 root root       0 Mar 14 10:47 abc2
+	-rw-r--r-- 1 root root       0 Mar 14 10:47 abc3
+	-rw-r--r-- 1 root root       0 Mar 14 10:47 abc4
+	-rw-r--r-- 1 root root       0 Mar 14 10:47 abc5
+	-rw------- 1 root root 8296049 Mar  8  2023 apache-maven-3.8.8-bin.tar.gz
+	-rw-r--r-- 1 root root       6 Mar 14 10:20 raham
+  ==>exit
+==>docker ps -a
+	CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                         PORTS     NAMES
+	955e910e397d   devops1        "/bin/bash"              53 minutes ago      Exited (0) 53 minutes ago                cont6
+	b76c69aa1dd8   03887609fb9d   "/bin/bash"              About an hour ago   Exited (0) About an hour ago             cont5
+	c722dc5723e7   devops         "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                   cont4
+	064c46a19e8b   1edf3fc318bb   "/bin/bash"              2 hours ago         Exited (0) 2 hours ago                   cont3
+	32ea05748cdc   5cfc304e84be   "/bin/sh -c 'aptinst…"   2 hours ago         Exited (127) 2 hours ago                 wizardly_feistel
+	0146b44c3206   9a4713492d9f   "/bin/sh -c 'apt upg…"   2 hours ago         Exited (100) 2 hours ago                 great_blackwell
+	ffd290fe8124   ca2b0f26964c   "/bin/sh -c 'apt ins…"   2 hours ago         Exited (100) 2 hours ago                 frosty_black
+	f5303a8293d9   raham1         "/bin/bash"              3 hours ago         Exited (0) 3 hours ago                   cont2
+	a535499dce53   ubuntu         "/bin/bash"              3 hours ago         Exited (0) 3 hours ago                   cont1
+==>vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/
+	ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+	ENV name raham
+	LABEL email shruthib412@gmail.com
+===>docker build -t devops1 .
+==>docker run -it --name cont7 devops1
+==>docker inspect cont7 [to get full information of cont7]
+==>docker inspect cont7 | grep -i label [to get label]
+	o/p::
+	========
+	"MountLabel": "",
+			"ProcessLabel": "",
+				"Labels": {
+==>vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/
+	ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+	ENV name raham
+	LABEL name swiggy
+==>docker build -t devops1 .
+==>docker run -it --name cont8 devops1
+==>docker inspect cont8 [to get full information of cont7]
+==>docker inspect cont8 | grep -i label [to get label] (here it is taking ENV and LABEL both are ovelapping]
+   o/p::
+	========
+	"MountLabel": "",
+			"ProcessLabel": "",
+				"Labels": {
+==>vim Dockerfile
+	FROM ubuntu
+	RUN apt update -y
+	RUN apt install apache2 -y
+	RUN apt install tree -y
+	RUN touch file{1..5}
+	COPY raham /tmp
+	WORKDIR /tmp
+	COPY a* /tmp/
+	ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+	LABEL name swiggy
+==>docker build -t devops1 .
+==>docker run -it --name cont9 devops1
+==>docker inspect cont9
+==>docker inspect cont9 | grep -i label [to get label]
+o/p:: [here we got o/p]
+===
+"HostnamePath": "/var/lib/docker/containers/a0bb2040c673d3aafaf11be53b0a4d4c55d74cde02ae62bcca46d979ebafcf97/hostname",
+        "Name": "/cont9",
+                "Name": "no",
+                    "Name": "nofile",
+            "Name": "overlay2"
+            "Hostname": "a0bb2040c673",
+            "Domainname": "",
+                "name": "swiggy",
+                "org.opencontainers.image.ref.name": "ubuntu",
+(29rd video)
+=====================
+==>why to create container?
+to run the application and to deploy the application and to pack the depencides and inside conatainer we have service.
+by using dockerfile we can create the docker in automation way.
+Docker volumes::
+========
+==>when we create container then volume will be created
+==>volume is simply a directory in our conatiner
+==>first we have to declare the directory volume and then share volume=
+=>even if we stop the container still we can access the volume
+=>volume will be created in one conatainer
+=>you can declare directoryas a volume only while creat conatainer
+=>we cant create volume from exisiting conatainer
+=>you can share one volume across many number of containers
+=>volume will not be included when you update an image
+=> if conatiner-1 volume is shared to conatainer-2 the changes made by conatainer-2 the changes made by conatainer-2 will be also avaliable in the conatainer-1
+vol-1 have 10 files in cont-1 and that will share to vol-2 in conainer-2 if any changes made in val-2 10 file i.e. cont-2 and total files 20 files will be present both cont-1 and cont-2
+you can mao volume in 2 ways::
+1)conatainer<--->conatiner
+2)host<----> conatiner
+
+
+30th video::
+==============
+what is the dockerswarm?design and orchestartion and service
+what is the purpose of dockerswarm? to maitains multiple containers on multiple servers
+what is the role of dockerswarmmanager?distribute the work among worker nodes
+what does we have on workernodes?we have services[conatainer=service]
+why conatainer=service?inside container we run services[eg::lets take paytm application i will take movie tkt on cont-1 and train tkt on cont-2 and bus tkt on cont-3 and all these services are created indiviadul services will run on multiple servers becz dockerswarm will work 
+on individual container[worker node] on individual service becz what purpose for better performance.
+dockerswarm is an orchestartion service[like one man controlling others]
+what is the use of dockerswarm is to distrubute load and the server is healthy.
+cluster:: all the node connected to each other is called cluster.
+-->dokcer manager is used to manage the worker nodes.
+
+DockerSWARM COMPONETS::
+==========================
+docker engine helps to create docker swarm.   
+multiple servers single service.service is nothing but a container.
+two node:: 1)manager node[purpose to distribute the work]  2)worker node [to run the services]
+->what is the use of replica?if we stop any container it will automatically create a new container.                                          
+https://medium.com/@saurav200892/getting-started-with-docker-swarm-36c9622d4759
+docker swarm init --advertise-addr 172.31.9.2 (PVT IP ADD OF MANAGER NODE)
+service:: represent a part of the feature of an application
+task::single part of work
+manager:tz manages the work among the different nodes
+worker:which works for a specific ppurpose of the service.
+Master node::
+======================
+
+worker-1
+========================= 
+
+worker-2::
+===============================
+
+
+-->when we want to remode the node from cluster you make it down when you dont make node down then you wont able to delete.it throws error.
+-->
+
+docker compose:: run multiple services on a single node i.e. single instance
+
+dockerswarm::purpose::distribute the containers among multiple worker nodes.
+
+how many container:: one container multiple replicas [means one container but we are  taking copies.]
+
+docker stack purpose:to deploy end to end application[f.e,b.e,api]
+portainer:: to get /install portainer first we need to have docker stack

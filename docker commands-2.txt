@@ -1,0 +1,59 @@
+    1  yum install docker -y
+    2  service docker start
+    3  docker staus
+    4  docker status
+    5  systemctl start docker.service
+    6  systemctl status docker.service
+    7  vim Dockerfile
+    8  docker images
+    9  docker ps -a
+   10  vim Dockerfile
+   11  docker build -t swiggy:v1 .
+   12  vim Dockerfile
+   13  docker build -t swiggy:v1 .
+   14  docker images
+   15  docker run -it --name cont1 swiggy:v1
+   16  vim Dockerfile
+   17  vim raham
+   18  ll
+   19  vim Dockerfile
+   20  docker build -t swiggy:v2 .
+   21  docker images
+   22  docker run -it --name cont2 swiggy:v2 .
+   23  docker run -it --name cont2 swiggy:v2 
+   24  ll
+   25  cat raham
+   26  vim Dockerfile
+   27  docker build -t swiggy:v3 .
+   28  docker images
+   29  docker run -d --name cont3 swiggy:v3
+   30  docker ps -a
+   31  docker start cont3
+   32  docker ps -a
+   33  docker run -d --name cont4 swiggy:v3 /bin/bash
+   34  docker ps -a
+   35  docker run -itd --name cont5 swiggy:v3 /bin/bash
+   36  docker ps -a
+   37  history
+   38  docker start cont3
+   39  docker attach cont5
+   40  docker inspect cont5
+   41  docker inspect cont5 | grep -i labels
+   42  docker inspect cont5 | grep -i email
+   43  docker tag swiggy:v3 shruthib666/abc
+   44  docker images
+   45  docker push shruthib666/abc
+   46  docker login
+   47  docker push shruthib666/abc
+   48  docker images
+   49  docker rmi shruthib666/abc
+   50  docker images
+   51  docker ps 
+   52  docker ps -a
+   53  docker rm cont5 -->before remove container the container need to be stop state.
+   54  docker ps -a
+   55  docker pull shruthib666/abc
+   56  docker images
+   
+   docker ps:: it will show all the current running containers.
+   docker ps -a: it will show all the containers it will running/stopped

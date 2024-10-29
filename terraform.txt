@@ -1,0 +1,303 @@
+terraform:: it is an infrastructre as code
+====
+->terraform written on go language and is uses in HCL language
+->why we need to use t/f?
+Ans)client needs an application -->where we need to create application inside server for that vpc,storage all those things we need and if the application got heavy load at that time loadbalancer will be involved this is called as infrastructure.
+->using t/f we can create infrastructure in an automation way
+->if we go any organization there will use terraform
+->in aws(CFT)is the automation way of craeting infrrastructure[in tz  we can write code and convert into t/f]
+->in aws CFT and in azure we have ARM template and gcp we use GDE but we can work t/f with any cloud even kbs also used t/f.
+->using t/f we can work with any cloud.it is cloud aganist.
+->if we deploy anything we use docker[used to create container]or ansible for that required t/f
+->using t/f we can handle both low-level elements like networking,storage,compute instances,also high level elements
+like SAAS features,DNS entries etc..
+-->terraform is server orchestartion tool[means we can create infrs end to end][chef,ansible and puppet are configuration management tool]
+->what is ansible will do? using ansible we can manage all servers while t/f is used to crate server.
+->terraform supports hashicorp language not yaml
+->https://releases.hashicorp.com/terraform (we get all versions of terraform)
+**)if we install any package that will go into the etc folder
+->ami-id will change from one region to another region
+Treeaform blocks[using tz we can create t/f]::
+=================
+1)provider&region[prakashraj[PR]]
+2)resource configuration[RamCharan[RC]]
+3)variable declaration[VijayDevarakoda[VD]]
+-->aws configure will give the security credentials and integrated with third party tools.
+-->kops is a thirdparty open source tool and we integrate that with the aws using aws configure
+
+steps[t/f life cycle]::
+=======
+terraform init (i) -->intializing infra or t/f
+terrraform plan(p) -->executing a paln
+terraform apply(a) -->craeting resource
+terraform destroy(d)
+
+1)simple t/f::
+==========
+provider "aws" {
+region = "us-east-2"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = "t2.micro"
+}
+
+2)using variable::[calling the instance type]
+==========
+provider "aws" {
+region = "us-east-2"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+}
+
+variable "instance_type"{
+description = "iam using this block for instance type"
+type = string
+default = "t2.micro"
+}
+
+3)creating t/f with 2 servers::[simple creation of count variable]
+========================
+provider "aws" {
+region = "us-east-2"
+}
+
+resource "aws_instance" "one" {
+count = 2
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+}
+
+variable "instance_type"{
+description = "iam using this block for instance type"
+type = string
+default = "t2.micro"
+}
+
+4)creating count using variable::
+=======
+provider "aws" {
+region = "us-east-2"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_count
+}
+
+variable "instance_count"{
+description = "iam using this block for instance type"
+type = number
+default = 3
+}
+
+5)creating iam users using t/f [list of strings]::
+===================
+provider "aws" {
+region = "us-east-2"
+}
+
+/*resource "aws_instance" "one" {
+count = var.instance_count
+ami = "ami-019f9b3318b7155c5"
+instance_type = "t2.micro"
+}*/                                                /* commenting #[for single line]
+
+resource "aws_iam_user" "two" {
+count = length(var.iam_users)
+name = var.iam_users[count.index]
+}
+
+variable "iam_users" {
+description = "iam using this block for instance type"
+type = list(string)
+default = ["kamalesh", "ravi", "manju", "suman"]
+}
+
+into,iaac,why,alternatives,advantages
+
+basic commands
+ec2,iam
+vars:: list,map,string,numbers
+
+when we want use only variable in terrafrom we can follow the below procedure
+create main.tf and carete variable.tf
+main.tf:
+==========
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+tags = {
+Name = "shruthi"
+}
+}
+
+variable.tf::
+==================
+variable "instance_type" {
+description = ""
+type = string
+default = "t2.micro"
+}
+
+check terraform.tfstate an instnace will be created
+->when we destroy [terraform destroy --auto-aprrove] and check terraform.tfstate[it wont show any instance]
+
+2nd way:: terraform tfvar files by using tz we can segregate the variables.here for instance_type we make two file[variable.tf and swiggy.tfvar][advantage with terraform tf var files if we want to edit(or)work with only variables at that time we use variables concept]
+======
+main.tf::  in this searching for variable file i.e. var.instance_type
+============
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+tags = {
+Name = "shruthi"
+}
+}
+variable.tf:: here we have variable block will be present
+===========
+variable "instance_type" {
+}
+
+swiggy.tfvar:: here we have instance_type
+==================
+instance_type = "t2.micro"
+
+->then run terraform apply --auto-approve
+->will get below like tz::
+var.instance_type
+  Enter a value: t2.micro
+->terraform destroy  --auto-approve
+
+same as the above code but some modifications when we use .tfvar it will ask the instance_type but when we use .
+tfvars it wont ask any instance_type in that case we need to be mentioned in command like:
+->terraform apply -var-file="swiggy.tfvars" --auto-approve [THEN IT WONT ASK THE INSTANCE_TYPE]
+
+and follow below code::
+main.tf::
+==========
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+tags = {
+Name = "shruthi"
+}
+}
+variable.tf::
+===========
+ variable "instance_type" {
+}
+
+swiggy.tfvar::
+==========
+instance_type="t2.micro"
+ 
+==>terraform fmt [to arrange the file in a proper format]
+
+if we work with multiple tfvar files clients then we can use below as follows::
+main.tf::
+==========
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = var.instance_type
+tags = {
+Name = var.instance_name
+}
+}
+zomato.tf::
+============
+
+variable "instance_type" {
+}
+variable "instance_name" {
+}
+
+zomato.tfvars::
+============
+instance_type="t2.micro"
+instance_name = "zomato"
+
+swiggy.tf::
+===============
+variable "instance_type" {
+}
+variable "instance_name" {
+}
+
+swiggy.tfvars::
+=============
+instance_type="t2.micro"
+instance_name = "swiggy"
+
+
+==>terraform apply --var-file="zomato.tfvars" --auto-aprrove
+==>terraform apply --var-file="swiggy.tfvars" --auto-aprrove
+terrafrom cli:;
+===========
+==>we can pass the ami_id using cli:: code as below follows
+-->passing varaible through cli[eg::ami_id]
+main.tf::
+===========
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = var.ami_id
+instance_type = "t2.micro"
+tags = {
+Name = "abcd"
+}
+}
+
+variable "ami_id" {
+}
+
+-->terraform apply -var="ami_id=ami-019f9b3318b7155c5"
+-->
+how to pass  variable in 4 ways::
+1)mail.tf 2)variables file 3)tfvarfiles 4)through cli
+
+2,3 in real life
+
+terraform outputs::
+=======================
+when we create an instance automatically public_ip address will be created here from the code i need to get the public+ip through as in mentioned in the outputs
+main.tf:: we wnat multiple values we use arrays[eg::value = [aws_instance.one.public_ip,aws_instance.one.private_ip,aws_instance.one.public_dns]]
+=====
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_instance" "one" {
+ami = "ami-019f9b3318b7155c5"
+instance_type = "t2.micro"
+tags = {
+Name = "abcd"
+}
+}
+
+output "props" {
+value = [aws_instance.one.public_ip,aws_instance.one.private_ip,aws_instance.one.public_dns]
+}
+o/p::
+props = [
+  "3.140.245.93",
+  "172.31.21.249",
+  "ec2-3-140-245-93.us-east-2.compute.amazonaws.com",
+]
+uptonow::variable.tf,tfvars,multitfvars,terrafrom cli,t/f outputs

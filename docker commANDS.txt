@@ -1,0 +1,138 @@
+yum install docker -y
+    2  docker --version
+       docker images
+       docker ps -a
+    6  docker pull ubuntu (to get the image)
+	
+	
+    7  docker images
+    8  docker run redis
+    9  docker images  -->[command to see the images for every image you will get uniqueid]
+   10  docker ps
+   11  docker ps -a -->command to see the containers
+   12  docker container ls
+   13  docker container
+   14  docker container ls
+   15  docker run alpine
+   16  docker ps
+   17  docker ps -a
+   18  docker images
+   19  docker container ls
+   20  docker container ls -a
+   21  docker search jenkins
+   22  docker images
+   23  docker ps
+   24  docker run -it ubuntu
+   25  docker ps -a
+   26  docker run -it --name ritu1 ubuntu
+   27  docker ps -a
+   28  clear
+   29  docker images
+   30  docker ps -a
+   31  docker run -it --name ritu2 ubuntu /bin/bash
+   32  docker ps -a
+   33  docker run -it --name ritu3  ubuntu touch f1
+   34  docker ps -a
+   35  docker start ritu1
+   37  docker attach ritu1
+  36  docker ps
+   38  docker attch ritu2
+   39  docker stop ritu1
+   40  docker ps
+   41  docker ps -1
+   42  docker ps -a
+   43  cd /tmp
+   44  docker images
+   45  docker ps -a
+   46  docker rm
+   47  cd ..
+   48  cd ~
+   49  docker ps
+   50  docke ps -a
+   51  docker ps -a
+   52  docker run -it --name cont-1 ubuntu /bin/bash
+   53  docker ps
+   54  docker ps -a
+   55  ll
+   56  docker commit cont-1 ubuntu-1
+   57  docker images
+   58  docker run -it --name cont-2 ubuntu-1 /bin/bash
+   59  docker images
+   60  cd /tmp
+   61  ll
+   62  cd tmp/
+   63  docker run -it --name cont-2 ubuntu-1 /bin/bash
+   64  cd ..
+   65  cd~
+   66  cd ~
+   67  docker commit cont-2 ubuntu-2
+   68  docker images
+   69  docker run -it --name cont-3 ubuntu-2 /bin/bash
+   70  docker version
+   71  service docker start
+   72  systemctl start docker.service
+   73  systemctl status docker.service
+   74  docker images
+   75  docker ps -a
+   76  vim Dockerfile
+   77  cat Dockerfile 
+   78  docker build -t image1 .
+   79  docker images
+   80  docker ps -a
+   81  docker run -it --name cont-1 image1
+   82  docker run -it --name cont-1 image1 /bin/bash
+   83  docker images
+   84  docker run -it --name cont-1 image1 /bin/bash
+   85  docker ps -a
+   86  docker ps
+   87  docker run -t --name cont-1 image1 /bin/bash
+   88  ll
+   89  docker run -it --name cont-1 image1 /bin/bash
+   90  ll
+   91  vim Dockerfile
+   92  docker build -t image2 .
+   93  vim file1
+   94  docker build image2 .
+   95  docker ps -a
+   96  touch test
+   97  ll
+   98  tar -cvf test.tar test
+   99  ll
+  100  gzip test.tar
+  101  ll
+  102  rm -rf test
+  103  ll
+  104  docker build -t image2
+  105  docker build -t image2 .
+  106  docker images
+  107  docker ps -a
+  108  docker run -it --name cont-2 image2 /bin/bash
+  109  docker start cont-2
+  110  docker attch cont-2
+  111  docker attach cont-2
+  112  history
+  
+==> -it (interactive terminal) go inside the terminal and -d detache dmode it will create container
+
+==>docker run -d --name cont3 swiggy:v3(it will create a container and defaulty it is go to exited stage)
+==>if the container need to run an up 
+docker run -itd --name cont5 swiggy:v3 /bin/bash
+
+==>cat -n Dockerfile(to get them as a numberwise) 
+
+https://ecosystem-tsg.onpassive.com/dashboard
+
+https://ecosystem-dev.onpassive.com/dashboard
+
+https://ecosystem-qa.onpassive.com/dashboard
+
+65cc60bae9c78400088423a8
+
+https://obs-dev.onpassive.com/dashboard
+
+
+65cc64d52eeef50008fe57a7--qa
+
+SSLCertificateExpiration_oconnect_prod
+
+High CPU utilization of Digital-MKT-website-node-01 Server.

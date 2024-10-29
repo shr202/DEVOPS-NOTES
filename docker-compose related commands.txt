@@ -1,0 +1,203 @@
+Digest: sha256:77906da86b60585ce12215807090eb327e7386c8fafb5402369e421f44eff17e
+Status: Image is up to date for ubuntu:latest
+docker.io/library/ubuntu:latest
+[root@ip-172-31-84-248 ~]# docker run -d --name cont1 ubuntu
+docker: Error response from daemon: Conflict. The container name "/cont1" is already in use by container "fce847399dbf2be13e1f5c9320520dcbd83a6072f470f856a4205fb324af09f9". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+[root@ip-172-31-84-248 ~]# docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED             STATUS                     PORTS                               NAMES
+454350b5c053   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   5 minutes ago       Up 5 minutes               8000/tcp, 9000/tcp, 9443/tcp        portainer_portainer.1.1q9f15271t57hu1hchsevslki
+71ea97dd0123   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   5 minutes ago       Exited (1) 5 minutes ago                                       portainer_portainer.1.sk2u77dfgtl0c3b143aquz3vr
+0b57dd7bb196   portainer/agent:2.16.2          "./agent"                5 minutes ago       Up 5 minutes                                                   portainer_agent.ofc21lql8hxraovzycnum7wf4.grjr0bba62f0eojeq4h0b9e2y
+c5a67187aca3   ubuntu                          "/bin/bash"              59 minutes ago      Up 59 minutes                                                  cont2
+fce847399dbf   ubuntu                          "/bin/bash"              59 minutes ago      Up 59 minutes                                                  cont1
+0fda4dd8dc3c   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 44 minutes              0.0.0.0:82->80/tcp, :::82->80/tcp   root_uber_1
+8d048f0107fa   httpd                           "httpd-foreground"       About an hour ago   Up 44 minutes              0.0.0.0:81->80/tcp, :::81->80/tcp   root_zomato_1
+3feb87eb1fc8   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 44 minutes              0.0.0.0:80->80/tcp, :::80->80/tcp   root_swiggy_1
+[root@ip-172-31-84-248 ~]# docker rm cont1 cont2
+Error response from daemon: You cannot remove a running container fce847399dbf2be13e1f5c9320520dcbd83a6072f470f856a4205fb324af09f9. Stop the container before attempting removal or force remove
+Error response from daemon: You cannot remove a running container c5a67187aca36fc8b3c539fcfd879dd05d7335f21ca99f9479cc41c07ba80922. Stop the container before attempting removal or force remove
+[root@ip-172-31-84-248 ~]# docker stop cont1
+cont1
+[root@ip-172-31-84-248 ~]# docker rm cont1
+cont1
+[root@ip-172-31-84-248 ~]# docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED             STATUS                     PORTS                               NAMES
+454350b5c053   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   6 minutes ago       Up 6 minutes               8000/tcp, 9000/tcp, 9443/tcp        portainer_portainer.1.1q9f15271t57hu1hchsevslki
+71ea97dd0123   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   6 minutes ago       Exited (1) 6 minutes ago                                       portainer_portainer.1.sk2u77dfgtl0c3b143aquz3vr
+0b57dd7bb196   portainer/agent:2.16.2          "./agent"                6 minutes ago       Up 6 minutes                                                   portainer_agent.ofc21lql8hxraovzycnum7wf4.grjr0bba62f0eojeq4h0b9e2y
+c5a67187aca3   ubuntu                          "/bin/bash"              About an hour ago   Up About an hour                                               cont2
+0fda4dd8dc3c   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 45 minutes              0.0.0.0:82->80/tcp, :::82->80/tcp   root_uber_1
+8d048f0107fa   httpd                           "httpd-foreground"       About an hour ago   Up 45 minutes              0.0.0.0:81->80/tcp, :::81->80/tcp   root_zomato_1
+3feb87eb1fc8   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 45 minutes              0.0.0.0:80->80/tcp, :::80->80/tcp   root_swiggy_1
+[root@ip-172-31-84-248 ~]# docker stop cont2
+cont2
+[root@ip-172-31-84-248 ~]# docker rm cont2
+cont2
+[root@ip-172-31-84-248 ~]# docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED             STATUS                     PORTS                               NAMES
+454350b5c053   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   7 minutes ago       Up 7 minutes               8000/tcp, 9000/tcp, 9443/tcp        portainer_portainer.1.1q9f15271t57hu1hchsevslki
+71ea97dd0123   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   7 minutes ago       Exited (1) 7 minutes ago                                       portainer_portainer.1.sk2u77dfgtl0c3b143aquz3vr
+0b57dd7bb196   portainer/agent:2.16.2          "./agent"                7 minutes ago       Up 7 minutes                                                   portainer_agent.ofc21lql8hxraovzycnum7wf4.grjr0bba62f0eojeq4h0b9e2y
+0fda4dd8dc3c   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 46 minutes              0.0.0.0:82->80/tcp, :::82->80/tcp   root_uber_1
+8d048f0107fa   httpd                           "httpd-foreground"       About an hour ago   Up 46 minutes              0.0.0.0:81->80/tcp, :::81->80/tcp   root_zomato_1
+3feb87eb1fc8   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 46 minutes              0.0.0.0:80->80/tcp, :::80->80/tcp   root_swiggy_1
+[root@ip-172-31-84-248 ~]# docker run -d --name cont1 ubuntu
+650e262cba51bf4431cbd2981781800936467342459e4003821bb11e504521cc
+[root@ip-172-31-84-248 ~]# docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED             STATUS                     PORTS                               NAMES
+650e262cba51   ubuntu                          "/bin/bash"              3 seconds ago       Exited (0) 3 seconds ago                                       cont1
+454350b5c053   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   7 minutes ago       Up 7 minutes               8000/tcp, 9000/tcp, 9443/tcp        portainer_portainer.1.1q9f15271t57hu1hchsevslki
+71ea97dd0123   portainer/portainer-ce:2.16.2   "/portainer -H tcp:/…"   8 minutes ago       Exited (1) 8 minutes ago                                       portainer_portainer.1.sk2u77dfgtl0c3b143aquz3vr
+0b57dd7bb196   portainer/agent:2.16.2          "./agent"                8 minutes ago       Up 8 minutes                                                   portainer_agent.ofc21lql8hxraovzycnum7wf4.grjr0bba62f0eojeq4h0b9e2y
+0fda4dd8dc3c   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 47 minutes              0.0.0.0:82->80/tcp, :::82->80/tcp   root_uber_1
+8d048f0107fa   httpd                           "httpd-foreground"       About an hour ago   Up 47 minutes              0.0.0.0:81->80/tcp, :::81->80/tcp   root_zomato_1
+3feb87eb1fc8   nginx                           "/docker-entrypoint.…"   About an hour ago   Up 47 minutes              0.0.0.0:80->80/tcp, :::80->80/tcp   root_swiggy_1
+[root@ip-172-31-84-248 ~]# clear
+[root@ip-172-31-84-248 ~]# vim portainer-agent-stack.yml
+[root@ip-172-31-84-248 ~]# docker stack deploy -c portainer-agent-stack.yml abcd
+Creating network abcd_agent_network
+Creating service abcd_portainer
+Creating service abcd_agent
+[root@ip-172-31-84-248 ~]# docker stack ls
+NAME        SERVICES   ORCHESTRATOR
+abcd        2          Swarm
+portainer   2          Swarm
+[root@ip-172-31-84-248 ~]# docker pull jenkins/jenkins:lts
+lts: Pulling from jenkins/jenkins
+71215d55680c: Pull complete
+35af8fb55c2f: Pull complete
+c8dac3aae91a: Pull complete
+1830bd5f9b45: Pull complete
+234e1154c2a1: Pull complete
+8d7cd7345072: Pull complete
+a89f7edcbd51: Pull complete
+83597e279c9f: Pull complete
+6c39e3e60898: Pull complete
+29150353c9ba: Pull complete
+33fe415a6139: Pull complete
+c5d8e31128fd: Pull complete
+Digest: sha256:1fd79ceb68ce883fb86db70bdbf7f9eaa8b25e580aafe7a240235240396e3916
+Status: Downloaded newer image for jenkins/jenkins:lts
+docker.io/jenkins/jenkins:lts
+[root@ip-172-31-84-248 ~]# docker run -it -p 8080:8080 --name jenkinsserver jenkins/jenkins:lts
+Running from: /usr/share/jenkins/jenkins.war
+webroot: /var/jenkins_home/war
+2024-04-03 07:07:23.063+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2024-04-03 07:07:24.637+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2024-04-03 07:07:24.816+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-10.0.20; built: 2024-01-29T20:46:45.278Z; git: 3a745c71c23682146f262b99f4ddc4c1bc41630c; jvm 17.0.10+7
+2024-04-03 07:07:25.406+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2024-04-03 07:07:25.517+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2024-04-03 07:07:26.644+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2024-04-03 07:07:26.990+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@332820f4{Jenkins v2.440.2,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2024-04-03 07:07:27.027+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@6c5945a7{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2024-04-03 07:07:27.060+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started Server@758a34ce{STARTING}[10.0.20,sto=0] @5188ms
+2024-04-03 07:07:27.070+0000 [id=25]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2024-04-03 07:07:27.549+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Started initialization
+2024-04-03 07:07:27.623+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2024-04-03 07:07:29.598+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2024-04-03 07:07:29.608+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2024-04-03 07:07:29.638+0000 [id=31]    INFO    jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2024-04-03 07:07:30.077+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: System config loaded
+2024-04-03 07:07:30.078+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: System config adapted
+2024-04-03 07:07:30.078+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2024-04-03 07:07:30.080+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2024-04-03 07:07:30.138+0000 [id=45]    INFO    hudson.util.Retrier#start: Attempt #1 to do the action check updates server
+2024-04-03 07:07:31.800+0000 [id=31]    INFO    jenkins.install.SetupWizard#init:
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+86dbcd98099641debcf4197448219618
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+2024-04-03 07:08:03.370+0000 [id=32]    INFO    jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2024-04-03 07:08:03.395+0000 [id=24]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2024-04-03 07:08:03.497+0000 [id=45]    INFO    h.m.DownloadService$Downloadable#load: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+2024-04-03 07:08:03.498+0000 [id=45]    INFO    hudson.util.Retrier#start: Performed the action check updates server successfully at the attempt #1
+
+ yum install docker -y
+    2  systemctl start docker
+    3  systemctl status docker
+    4  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    5  ls /usr/local/bin/
+    6  sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    7  sudo chmod +x /usr/local/bin/docker-compose
+    8  docker-compose version
+    9  vim docker-compose.yml
+   10  history
+   11  docker-compose up -d
+   12  docker ps -a
+   13  mv docker-compose.yml docker-compose1.yml 
+   14  ll
+   15  docker-compose -f docker-compose1.yml up -d
+   16  docker run -itd --name cont1 ubuntu
+   17  docker run -itd --name cont2 ubuntu
+   18  docker ps -a
+   19  docker-compose
+   20  docker-compose build
+   21  mv docker-compose1.yml docker-compose.yml 
+   22  ll
+   23  docker-compose
+   24  docker-compose build
+   25  docker-compose comfig
+   26  docker-compose cofig
+   27  docker-compose config
+   28  docker-compose ps
+   29  docker-compose logs
+   30  ls -a
+   31  clear
+   32  docker-compose ps
+   33  docker-compose stop
+   34  docker-compose ps
+   35  docker-compose start
+   36  docker-compose ps
+   37  clear
+   38  docker swarm init --advertise-addr 172.31.84.248
+   39  curl -L https://downloads.portainer.io/ce2-16/portainer-agent-stack.yml -o portainer-agent-stack.yml
+   40  ll
+   41  vim portainer-agent-stack.yml 
+   42  docker stack deploy -c portainer-agent-stack.yml 
+   43  docker stack deploy -c portainer-agent-stack.yml portainer
+   44  docker ps -a
+   45  docker pull ubuntu
+   46  docker run -d --name cont1 ubuntu
+   47  docker ps -a
+   48  docker rm cont1 cont2
+   49  docker stop cont1
+   50  docker rm cont1
+   51  docker ps -a
+   52  docker stop cont2
+   53  docker rm cont2
+   54  docker ps -a
+   55  docker run -d --name cont1 ubuntu
+   56  docker ps -a
+   57  clear
+   58  vim portainer-agent-stack.yml 
+   59  docker stack deploy -c portainer-agent-stack.yml abcd
+   60  docker stack ls
+   61  docker pull jenkins/jenkins:lts
+   62  docker run -it -p 8080:8080 --name jenkinsserver jenkins/jenkins:lts
+   63  docker stats [to konw the full information about volumes]
+   64  history
+   
+   
+   
+   docvker related conditions for using cpu and mem::
+    docker run -d --name cont4 --memory 8MB ubuntu [creating container cont4 with some fix of size of memory 8GB means our memorydont exceed to 8gb]
+   83  docker inspect cont4 | grep -i memory
+   84  docker run -it --name cont5 --cpus=".2" ubuntu[reating container cont5 with some fix of size of cpu of 20% means our cpu dont exceed to 20%]
+   85  docker inspect cont5 | grep -i cpu[full information of cont5]
+   86  docker run -it --name cont6 --cpus=".3" ubuntu[here 30% = 0.3]
+   87  docker inspect cont6 | grep -i cpu
+   88  docker run -it --name cont7 --cpus=".6" ubuntu
+   89  docker inspect cont7 | grep -i cpu
