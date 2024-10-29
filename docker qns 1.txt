@@ -1,0 +1,4 @@
+1)i have two containers secondone i need to start then is it possible
+2)diff b/n stop and kill
+it will stop the container becz inside container some application is runninga and stop process for few time and kill will automatically kill the processes
+3)diff b/n pull and run

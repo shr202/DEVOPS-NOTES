@@ -1,0 +1,21 @@
+2nd method::
+====================
+docker run -it --name cont3 -v /vol2  ubuntu (creating container along with volume for image ubuntu)
+ll
+we get vol2
+docker run -it --name cont5 --volumes-from cont4 --privileged=true ubuntu -->copying volumes from cont4 to cont5 and creating cont5
+==>docker system df -v(to list out volume in which are using which are not using)
+==>docker stop $(docker ps -a -q) [it will stop all containers.]
+==>docker rm $(docker ps -a -q) [it will remove all conatiners]
+==> docker rm $(docker ps -a -q) [it will remove all images]
+==>(-D) detach mode 
+===>Foreground (we want to run our container in foreground becz the conatiner wont stop if conatinerstop we cant able access the application)
+==>to create containerwhat we need? image
+==>to create image from dockerfile what we neeed to do? docker build
+==> docker run -itd --name cont1 raham:v1 (for creation od conatinerfor image of raham:v1)
+==>if any changes in the dockerfile we need to update image 
+  ==>docker build -t raham:v1 .
+  ==>docker run -itd --name cont2 raham:v1 (again create a new container)
+  
+how to share local volume to container::
+==========================================

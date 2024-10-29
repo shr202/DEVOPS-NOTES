@@ -1,0 +1,420 @@
+cluster manager::
+============
+manager node:::
+=============
+docker swarm init --advertise-addr 172.31.17.107
+Swarm initialized: current node (qbr23h5wrv5y9iwgb1e9uwbyg) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2262ysas2m2aac6gbw465gzt3tqcukd84n2vs7om443xqvp241-0ojbhe29yxt7t29a1vwceihjg 172.31.17.107:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+gfsst8a2nsl3m2ea8t4ao6qdr     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+gfsst8a2nsl3m2ea8t4ao6qdr     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+gfsst8a2nsl3m2ea8t4ao6qdr     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+gfsst8a2nsl3m2ea8t4ao6qdr     ip-172-31-24-147.us-east-2.compute.internal   Down      Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+gfsst8a2nsl3m2ea8t4ao6qdr     ip-172-31-24-147.us-east-2.compute.internal   Down      Active                          20.10.25
+l121l2hs50rbochlhlm67sdih     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node rm gfsst8a2nsl3m2ea8t4ao6qdr
+gfsst8a2nsl3m2ea8t4ao6qdr
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+l121l2hs50rbochlhlm67sdih     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker node rm gfsst8a2nsl3m2ea8t4ao6qdr
+gfsst8a2nsl3m2ea8t4ao6qdr
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+qbr23h5wrv5y9iwgb1e9uwbyg *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+m2eucdh7tjs7ornffwc8uo3xs     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+l121l2hs50rbochlhlm67sdih     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker swarm leave --force
+Node left the swarm.
+[root@ip-172-31-17-107 ~]# docker node ls
+Error response from daemon: This node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again.
+[root@ip-172-31-17-107 ~]# docker swarm init --advertise-addr 172.31.17.107
+Swarm initialized: current node (s9yzsddncypcylzhmitowwkqh) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3286eeg7qmhlplgv73t7468cudsxqjfvjnijlluyzjtchf1ahm-0rjabq7ptzvtvksz90sv3l1f3 172.31.17.107:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+s9yzsddncypcylzhmitowwkqh *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+[root@ip-172-31-17-107 ~]# docker node ls
+ID                            HOSTNAME                                      STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+s9yzsddncypcylzhmitowwkqh *   ip-172-31-17-107.us-east-2.compute.internal   Ready     Active         Leader           20.10.25
+9ph7qa7iphzf1f34vhgicz1sd     ip-172-31-19-50.us-east-2.compute.internal    Ready     Active                          20.10.25
+4b4ihgq8kxea9soksubhowin0     ip-172-31-24-147.us-east-2.compute.internal   Ready     Active                          20.10.25
+[root@ip-172-31-17-107 ~]# docker swarm join-token manager [to knw the manager node of the dockerswarm]
+To add a manager to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3286eeg7qmhlplgv73t7468cudsxqjfvjnijlluyzjtchf1ahm-8z6fdzmbhwr42jg0tb5w1rc0z 172.31.17.107:2377
+[root@ip-172-31-17-107 ~]# docker swarm join-token worker [to knw the worker node of the dockerswarm]
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3286eeg7qmhlplgv73t7468cudsxqjfvjnijlluyzjtchf1ahm-0rjabq7ptzvtvksz90sv3l1f3 172.31.17.107:2377
+
+services::
+=========
+[root@ip-172-31-17-107 ~]# docker service create --name swiggy --replicas 3 --publish 80:80 httpd
+iertb7cf3nxs2zkj6hz01mdbz
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service converged
+[root@ip-172-31-17-107 ~]# docker service ls
+ID             NAME      MODE         REPLICAS   IMAGE          PORTS
+iertb7cf3nxs   swiggy    replicated   3/3        httpd:latest   *:80->80/tcp
+[root@ip-172-31-17-107 ~]# docker ps -a [docker swarm main intention is to run the servers on multiple containers i.e. means here it run remaining two worker nodes]
+CONTAINER ID   IMAGE          COMMAND              CREATED              STATUS              PORTS     NAMES
+1df390851de7   httpd:latest   "httpd-foreground"   About a minute ago   Up About a minute   80/tcp    swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED              STATUS              PORTS     NAMES
+1df390851de7   httpd:latest   "httpd-foreground"   About a minute ago   Up About a minute   80/tcp    swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS          PORTS     NAMES
+1df390851de7   httpd:latest   "httpd-foreground"   11 minutes ago   Up 11 minutes   80/tcp    swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker stop 1df390851de7  [even if westop the container immediatley it will create new it is called replica]
+1df390851de7
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS                     PORTS     NAMES
+54abfe8035d1   httpd:latest   "httpd-foreground"   6 seconds ago    Up Less than a second      80/tcp    swiggy.3.j8a9onflc59qjw878bujod9mt
+1df390851de7   httpd:latest   "httpd-foreground"   12 minutes ago   Exited (0) 6 seconds ago             swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker service ps swiggy [we get to know all the services[oe which are running on swiggy name
+ID             NAME           IMAGE          NODE                                          DESIRED STATE   CURRENT STATE            ERROR     PORTS
+pu78fpf1u7cw   swiggy.1       httpd:latest   ip-172-31-24-147.us-east-2.compute.internal   Running         Running 14 minutes ago
+igyfksn376qi   swiggy.2       httpd:latest   ip-172-31-19-50.us-east-2.compute.internal    Running         Running 14 minutes ago
+j8a9onflc59q   swiggy.3       httpd:latest   ip-172-31-17-107.us-east-2.compute.internal   Running         Running 2 minutes ago
+pcvkrrx1pmb4    \_ swiggy.3   httpd:latest   ip-172-31-17-107.us-east-2.compute.internal   Shutdown        Complete 2 minutes ago
+[nginx and webserver both are webservers to see the frontend of our application]
+[copy the public-ip and hit the application to all 3 servers i.e:18.222.136.14:80 and 18.222.136.14:81]
+docker service create --name zomato --replicas 5 --publish 81:80 nginx
+v6iqao7h3vs4aoyg5yj7njba3
+overall progress: 5 out of 5 tasks
+1/5: running   [==================================================>]
+2/5: running   [==================================================>]
+3/5: running   [==================================================>]
+4/5: running   [==================================================>]
+5/5: running   [==================================================>]
+verify: Service converged
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS                     PORTS     NAMES
+7df35df3bcb7   nginx:latest   "/docker-entrypoint.…"   About a minute ago   Up About a minute          80/tcp    zomato.4.ncy3c3fyd142txx28kdzr0td5
+5ce775873673   nginx:latest   "/docker-entrypoint.…"   About a minute ago   Up About a minute          80/tcp    zomato.1.9jdcn3kvkqh4bx7uzn95gcp3m
+54abfe8035d1   httpd:latest   "httpd-foreground"       9 minutes ago        Up 9 minutes               80/tcp    swiggy.3.j8a9onflc59qjw878bujod9mt
+1df390851de7   httpd:latest   "httpd-foreground"       21 minutes ago       Exited (0) 9 minutes ago             swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[let us say zomato is service it will run on multiple nodes[servers] i.e. worker-1 and worker-2 simpley same service run on multiple nodes is nothing but dockerswarm]
+docker service ls
+ID             NAME      MODE         REPLICAS   IMAGE          PORTS
+iertb7cf3nxs   swiggy    replicated   3/3        httpd:latest   *:80->80/tcp
+v6iqao7h3vs4   zomato    replicated   5/5        nginx:latest   *:81->80/tcp
+[root@ip-172-31-17-107 ~]# docker service logs swiggy
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 1df390851de7
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 1df390851de7
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.512918 2024] [mpm_event:notice] [pid 1:tid 139966032357248] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.513040 2024] [core:notice] [pid 1:tid 139966032357248] AH00094: Command line: 'httpd -D FOREGROUND'
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:31:36 +0000] "GET /.env HTTP/1.1" 404 196
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:37:45 +0000] "-" 408 -
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:38:03 +0000] "GET / HTTP/1.1" 200 45
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:38:21 +0000] "-" 408 -
+swiggy.3.pcvkrrx1pmb4@ip-172-31-17-107.us-east-2.compute.internal    | [Tue Apr 02 06:39:51.709590 2024] [mpm_event:notice] [pid 1:tid 139966032357248] AH00492: caught SIGWINCH, shutting down gracefully
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 54abfe8035d1
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 54abfe8035d1
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | [Tue Apr 02 06:39:58.612968 2024] [mpm_event:notice] [pid 1:tid 140264816572288] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | [Tue Apr 02 06:39:58.613179 2024] [core:notice] [pid 1:tid 140264816572288] AH00094: Command line: 'httpd -D FOREGROUND'
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:45:33 +0000] "GET / HTTP/1.1" 200 45
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:45:40 +0000] "GET / HTTP/1.1" 200 45
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:57:18 +0000] "GET /robots.txt HTTP/1.1" 404 196
+swiggy.3.j8a9onflc59q@ip-172-31-17-107.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:57:34 +0000] "GET /robots.txt HTTP/1.1" 404 196
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 3117de388df0
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 3117de388df0
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.566486 2024] [mpm_event:notice] [pid 1:tid 140218044639104] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.566597 2024] [core:notice] [pid 1:tid 140218044639104] AH00094: Command line: 'httpd -D FOREGROUND'
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:36:57 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:36:57 +0000] "GET /favicon.ico HTTP/1.1" 404 196
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:37:34 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:38:00 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:38:00 +0000] "GET /favicon.ico HTTP/1.1" 404 196
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:39:10 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:48:29 +0000] "-" 408 -
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:54:53 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:57:24 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:57:43 +0000] "GET / HTTP/1.1" 200 45
+swiggy.1.pu78fpf1u7cw@ip-172-31-24-147.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:57:51 +0000] "GET /favicon.ico HTTP/1.1" 404 196
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 5704e0bdf8de
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | AH00557: httpd: apr_sockaddr_info_get() failed for 5704e0bdf8de
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.447896 2024] [mpm_event:notice] [pid 1:tid 140540278552448] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | [Tue Apr 02 06:27:44.448019 2024] [core:notice] [pid 1:tid 140540278552448] AH00094: Command line: 'httpd -D FOREGROUND'
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:37:33 +0000] "GET / HTTP/1.1" 200 45
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:37:33 +0000] "GET /favicon.ico HTTP/1.1" 404 196
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:37:51 +0000] "GET / HTTP/1.1" 200 45
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:37:53 +0000] "GET / HTTP/1.1" 200 45
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:38:31 +0000] "-" 408 -
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.4 - - [02/Apr/2024:06:39:12 +0000] "GET / HTTP/1.1" 200 45
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:48:29 +0000] "-" 408 -
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.3 - - [02/Apr/2024:06:57:33 +0000] "GET /robots.txt HTTP/1.1" 404 196
+swiggy.2.igyfksn376qi@ip-172-31-19-50.us-east-2.compute.internal    | 10.0.0.2 - - [02/Apr/2024:06:57:40 +0000] "GET / HTTP/1.1" 200 45
+[root@ip-172-31-17-107 ~]# docker service inspect
+"docker service inspect" requires at least 1 argument.
+See 'docker service inspect --help'.
+
+Usage:  docker service inspect [OPTIONS] SERVICE [SERVICE...]
+
+Display detailed information on one or more services
+[root@ip-172-31-17-107 ~]# docker service inspect swiggy
+[
+    {
+        "ID": "iertb7cf3nxs2zkj6hz01mdbz",
+        "Version": {
+            "Index": 22
+        },
+        "CreatedAt": "2024-04-02T06:27:37.950159905Z",
+        "UpdatedAt": "2024-04-02T06:27:37.951352395Z",
+        "Spec": {
+            "Name": "swiggy",
+            "Labels": {},
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "httpd:latest@sha256:374766f5bc5977c9b72fdb8ae3ed05b7fc89060e7edc88fcbf142d6988e58eeb",
+                    "Init": false,
+                    "StopGracePeriod": 10000000000,
+                    "DNSConfig": {},
+                    "Isolation": "default"
+                },
+                "Resources": {
+                    "Limits": {},
+                    "Reservations": {}
+                },
+                "RestartPolicy": {
+                    "Condition": "any",
+                    "Delay": 5000000000,
+                    "MaxAttempts": 0
+                },
+                "Placement": {
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "Architecture": "arm64",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "Architecture": "386",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "Architecture": "mips64le",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "Architecture": "ppc64le",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        },
+                        {
+                            "Architecture": "s390x",
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "unknown",
+                            "OS": "unknown"
+                        }
+                    ]
+                },
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 3
+                }
+            },
+            "UpdateConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "RollbackConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "EndpointSpec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 80,
+                        "PublishedPort": 80,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            }
+        },
+        "Endpoint": {
+            "Spec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 80,
+                        "PublishedPort": 80,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            },
+            "Ports": [
+                {
+                    "Protocol": "tcp",
+                    "TargetPort": 80,
+                    "PublishedPort": 80,
+                    "PublishMode": "ingress"
+                }
+            ],
+            "VirtualIPs": [
+                {
+                    "NetworkID": "w1xwmai9zvqlzc598zi9yqxph",
+                    "Addr": "10.0.0.5/24"
+                }
+            ]
+        }
+    }
+]
+[root@ip-172-31-17-107 ~]# docker service rm swiggy
+swiggy
+[root@ip-172-31-17-107 ~]# docker service rm zomato
+zomato
+[root@ip-172-31-17-107 ~]# docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+-->docker swarm join-token manager [to know the manager token]
+80:80[container:image] -->[httpd:80] ;3/3[activated replicas/no.of replicas]
+
+worker-1::
+================
+docker swarm join --token SWMTKN-1-2262ysas2m2aac6gbw465gzt3tqcukd84n2vs7om443xqvp241-0ojbhe29yxt7t29a1vwceihjg 172.31.17.107:2377
+This node joined a swarm as a worker.
+[root@ip-172-31-24-147 ~]# docker swarm leave
+Node left the swarm.
+[root@ip-172-31-24-147 ~]# docker swarm join --token SWMTKN-1-2262ysas2m2aac6gbw465gzt3tqcukd84n2vs7om443xqvp241-0ojbhe29yxt7t29a1vwceihjg 172.31.17.107:2377
+This node joined a swarm as a worker.
+[root@ip-172-31-24-147 ~]# docker swarm join --token SWMTKN-1-3286eeg7qmhlplgv73t7468cudsxqjfvjnijlluyzjtchf1ahm-0rjabq7ptzvtvksz90sv3l1f3 172.31.17.107:2377
+Error response from daemon: This node is already part of a swarm. Use "docker swarm leave" to leave this swarm and join another one.
+[root@ip-172-31-24-147 ~]# docker swarm leave
+Node left the swarm.
+[root@ip-172-31-24-147 ~]# docker swarm join --token SWMTKN-1-3286eeg7qmhlplgv73t7468cudsxqjfvjnijlluyzjtchf1ahm-0rjabq7ptzvtvksz90sv3l1f3 172.31.17.107:2377
+This node joined a swarm as a worker.
+[root@ip-172-31-24-147 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED         STATUS         PORTS     NAMES
+3117de388df0   httpd:latest   "httpd-foreground"   4 minutes ago   Up 4 minutes   80/tcp    swiggy.1.pu78fpf1u7cw4y3z0vymzlp61
+[root@ip-172-31-24-147 ~]#docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES
+659ce9eeae32   nginx:latest   "/docker-entrypoint.…"   2 minutes ago    Up 2 minutes    80/tcp    zomato.2.848cmg7kysntwdn1oaoz1el6b
+43330239c84e   nginx:latest   "/docker-entrypoint.…"   2 minutes ago    Up 2 minutes    80/tcp    zomato.5.ie8uv109icfit5nshqvcbvjlw
+3117de388df0   httpd:latest   "httpd-foreground"       21 minutes ago   Up 21 minutes   80/tcp    swiggy.1.pu78fpf1u7cw4y3z0vymzlp61
+
+**)service create container when service deleted container is also deleted
+worker-2::
+==========
+[root@ip-172-31-17-107 ~]# docker service ls
+ID             NAME      MODE         REPLICAS   IMAGE          PORTS
+iertb7cf3nxs   swiggy    replicated   3/3        httpd:latest   *:80->80/tcp
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED              STATUS              PORTS     NAMES
+1df390851de7   httpd:latest   "httpd-foreground"   About a minute ago   Up About a minute   80/tcp    swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS          PORTS     NAMES
+1df390851de7   httpd:latest   "httpd-foreground"   11 minutes ago   Up 11 minutes   80/tcp    swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker stop 1df390851de7  [even if westop the container immediatley it will create new it is called replica]
+1df390851de7
+[root@ip-172-31-17-107 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND              CREATED          STATUS                     PORTS     NAMES
+54abfe8035d1   httpd:latest   "httpd-foreground"   6 seconds ago    Up Less than a second      80/tcp    swiggy.3.j8a9onflc59qjw878bujod9mt
+1df390851de7   httpd:latest   "httpd-foreground"   12 minutes ago   Exited (0) 6 seconds ago             swiggy.3.pcvkrrx1pmb44e90p3wn6dqcm
+[root@ip-172-31-17-107 ~]# docker service ps swiggy [we get to know all the services[oe which are running on swiggy name
+ID             NAME           IMAGE          NODE                                          DESIRED STATE   CURRENT STATE            ERROR     PORTS
+pu78fpf1u7cw   swiggy.1       httpd:latest   ip-172-31-24-147.us-east-2.compute.internal   Running         Running 14 minutes ago
+igyfksn376qi   swiggy.2       httpd:latest   ip-172-31-19-50.us-east-2.compute.internal    Running         Running 14 minutes ago
+j8a9onflc59q   swiggy.3       httpd:latest   ip-172-31-17-107.us-east-2.compute.internal   Running         Running 2 minutes ago
+pcvkrrx1pmb4    \_ swiggy.3   httpd:latest   ip-172-31-17-107.us-east-2.compute.internal   Shutdown        Complete 2 minutes ago
+[root@ip-172-31-19-50 ~]# docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES
+a8aa969188b8   nginx:latest   "/docker-entrypoint.…"   2 minutes ago    Up 2 minutes    80/tcp    zomato.3.amyddii7lntzx4dfnqkmis9i3
+5704e0bdf8de   httpd:latest   "httpd-foreground"       21 minutes ago   Up 21 minutes   80/tcp    swiggy.2.igyfksn376qii6uhzvxzh43a0
