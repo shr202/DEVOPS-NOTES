@@ -621,3 +621,7 @@ terraform modules::
 role is used to organize the playbook into a directory format.
 
 -->same in t/f modules are going to organize the infrastructre into the directory structure.
+
+Terraform Backend	Defines where Terraform stores the state (local, S3, Terraform Cloud, etc.)
+Terraform State File (terraform.tfstate)	JSON file that tracks the current state of infrastructure
+
